@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>MARCOX REG - Team Bisnis</title>
+<style>
+  html,body{touch-action: pan-x pan-y;overscroll-behavior:none;-webkit-text-size-adjust:100%}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;-webkit-tap-highlight-color:transparent}
+  body{background:#050508;color:white;overflow-x:hidden}
+  img{ -webkit-user-drag:none; -webkit-touch-callout:none; user-select:none; -webkit-user-select:none; }
+  .no-download{position:relative; -webkit-touch-callout:none; -webkit-user-select:none; user-select:none;}
+  .no-download::after{content:"";position:absolute;inset:0;z-index:5;background:transparent}
+  .no-download img{pointer-events:none}
+  .marquee{overflow:hidden;white-space:nowrap;background:#ffcc00;color:black;font-weight:800;padding:9px 0;font-size:13px;letter-spacing:1px;position:sticky;top:0;z-index:100}
+  .marquee span{display:inline-block;animation:marquee 15s linear infinite;padding-left:20px}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  header{padding:14px 22px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:35px;background:rgba(5,5,8,.95);backdrop-filter:blur(10px);z-index:90;border-bottom:1px solid #1a1a1a}
+  .brand{display:flex;align-items:center;gap:12px}
+  /* LOGO ANIMASI API KAYA WEB TOP UP GAME - BARU */
+  .logo-wrap{position:relative;width:58px;height:58px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  .logo-ring{position:absolute;inset:-4px;border-radius:50%;border:2px dashed #ffcc00;animation:putarRing 6s linear infinite;opacity:.9}
+  .logo-ring2{position:absolute;inset:-9px;border-radius:50%;border:1px solid rgba(255,106,0,.5);animation:putarRingBalik 8s linear infinite}
+  @keyframes putarRing{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+  @keyframes putarRingBalik{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+  .logo-box{width:48px;height:48px;border-radius:50%;background:white;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid #ffcc00;flex-shrink:0;position:relative;z-index:3;animation:logoNafas 2.5s ease-in-out infinite, logoGlow 1.5s ease-in-out infinite alternate}
+  @keyframes logoNafas{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-3px) scale(1.05)}}
+  @keyframes logoGlow{from{box-shadow:0 0 10px #ffcc00, 0 0 20px #ff6a00}to{box-shadow:0 0 20px #ffcc00, 0 0 35px #ff6a00, 0 0 50px #ffcc00}}
+  .logo-box img{width:100%;height:100%;object-fit:cover;display:block}
+  .api{position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:44px;height:18px;z-index:2;pointer-events:none;overflow:visible}
+  .api span{position:absolute;bottom:0;border-radius:50% 50% 50% 50% / 80% 80% 20% 20%;transform-origin:bottom center;animation:apiNaik 1s ease-in-out infinite}
+  .api span:nth-child(1){left:6px;width:14px;height:16px;background:linear-gradient(to top,#ff0000,#ff6a00,#ffcc00);animation-delay:0s}
+  .api span:nth-child(2){left:18px;width:16px;height:22px;background:linear-gradient(to top,#ff3d00,#ff9a00,#fff200);animation-delay:.2s}
+  .api span:nth-child(3){left:30px;width:12px;height:14px;background:linear-gradient(to top,#ff0000,#ff6a00,#ffcc00);animation-delay:.4s}
+  @keyframes apiNaik{0%,100%{transform:scaleY(1) scaleX(1);opacity:1}50%{transform:scaleY(1.5) scaleX(.8);opacity:.8}}
+  .percikan{position:absolute;inset:0;pointer-events:none;z-index:1}
+  .percikan i{position:absolute;bottom:0;width:4px;height:4px;background:#ffcc00;border-radius:50%;box-shadow:0 0 6px #ff6a00;animation:percikanNaik 1.8s linear infinite}
+  .percikan i:nth-child(1){left:10px;animation-delay:0s}
+  .percikan i:nth-child(2){left:22px;animation-delay:.4s;width:5px;height:5px;background:#ff6a00}
+  .percikan i:nth-child(3){left:34px;animation-delay:.8s}
+  .percikan i:nth-child(4){left:28px;animation-delay:1.2s;width:3px;height:3px}
+  @keyframes percikanNaik{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-38px) scale(0);opacity:0}}
+  .brand-text{line-height:1}
+  .brand-text b{font-size:20px;letter-spacing:1.5px}
+  .brand-text b span{color:#ffcc00}
+  .brand-text small{font-size:10px;letter-spacing:3px;color:#aaa}
+  nav a{color:#ccc;text-decoration:none;margin-left:16px;font-size:13px}
+  .hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:20px;background:radial-gradient(circle at 50% 30%, #2a1a00, #050508 70%)}
+  .banner-wrap{width:100%;max-width:900px;margin-bottom:8px}
+  .banner{width:100%;height:220px;border-radius:18px;overflow:hidden;border:2px solid #ffcc00;box-shadow:0 0 25px rgba(255,204,0,.25);position:relative;background:#111118;display:flex;align-items:center;justify-content:center}
+  .banner-track{display:flex;width:100%;height:100%;transition:transform .5s ease}
+  .banner-slide{min-width:100%;height:100%;position:relative}
+  .banner-slide img{width:100%;height:100%;object-fit:cover;display:block}
+  @media(max-width:600px){.banner{height:150px}}
+  .dots-box{display:flex;justify-content:center;margin-top:10px}
+  .dots-inner{display:flex;gap:8px;background:#1a1a1a;border:1px solid #333;padding:7px 14px;border-radius:50px;align-items:center}
+  .dot{width:9px;height:9px;border-radius:50%;background:#555;cursor:pointer;transition:all .3s;border:none;padding:0}
+  .dot.active{width:22px;height:9px;border-radius:50px;background:#ffcc00;box-shadow:0 0 10px rgba(255,204,0,.7)}
+  .marcox{font-size:clamp(48px, 10vw, 110px);font-weight:900;letter-spacing:4px;line-height:1;background:linear-gradient(90deg,#ffcc00,#ff6a00,#ffcc00,#fff200,#ffcc00);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation: gradMove 3s linear infinite, floatUp 3s ease-in-out infinite;margin-top:10px}
+  .reg{font-size:clamp(28px, 5vw, 50px);font-weight:900;letter-spacing:12px;color:white;margin-top:5px;animation: slideReg 2.5s ease-in-out infinite alternate;text-shadow:0 0 20px #ffcc00, 0 0 40px #ff6a00}
+  @keyframes gradMove{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+  @keyframes floatUp{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.02)}}
+  @keyframes slideReg{from{transform:translateX(-15px);opacity:.7}to{transform:translateX(15px);opacity:1}}
+  .tag{margin-top:15px;color:#ccc;max-width:650px;line-height:1.7}
+  .btn{margin-top:25px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .btn a{padding:13px 26px;border-radius:50px;text-decoration:none;font-weight:800;font-size:14px}
+  .btn1{background:#ffcc00;color:black}
+  .btn2{border:1px solid #555;color:white}
+  .btn3{border:1px solid #ffcc00;color:#ffcc00}
+  .section{max-width:900px;margin:auto;padding:36px 22px}
+  .section h2{font-size:28px;margin-bottom:14px;line-height:1.3}
+  .section h2 span{color:#ffcc00}
+  .section p{color:#c8c8c8;line-height:1.9;font-size:15px;margin-bottom:14px;text-align:justify}
+  .section b{color:white}
+  .quote-box{background:#111118;border-left:4px solid #ffcc00;padding:22px;border-radius:0 16px 16px 0;margin:18px 0}
+  .quote-box p{color:white;font-size:17px;font-style:italic;text-align:left}
+  .list-box{background:#111118;border:1px solid #222;padding:22px;border-radius:18px;margin:14px 0}
+  .list-box h3{color:#ffcc00;margin-bottom:10px}
+  .list-box p{margin-bottom:8px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;padding:0 22px 30px;max-width:1100px;margin:auto}
+  .card{background:#111118;border:1px solid #222;padding:22px;border-radius:18px}
+  .card h3{margin-bottom:8px}
+  .card p{color:#aaa;font-size:14px;line-height:1.7}
+  .card b{color:#ffcc00;font-size:28px}
+  .kerja{max-width:900px;margin:10px auto 30px;background:linear-gradient(135deg,#1a1400,#111118);border:2px solid #ffcc00;border-radius:22px;padding:35px 22px;text-align:center}
+  .kerja h2{font-size:30px;line-height:1.3}
+  .kerja h2 span{color:#ffcc00}
+  .kerja p{color:#ccc;margin:14px auto;max-width:600px;line-height:1.8}
+  .kerja .btn-daftar{display:inline-block;margin-top:10px;background:#ffcc00;color:black;padding:15px 35px;border-radius:50px;font-weight:900;text-decoration:none;font-size:16px;box-shadow:0 0 20px rgba(255,204,0,.4)}
+  .fintci-wrap{max-width:900px;margin:0 auto 10px;padding:0 22px;text-align:center}
+  .fintci-box{background:linear-gradient(135deg,#0a1a2a,#111118);border:2px solid #00c6ff;border-radius:22px;padding:30px 22px;text-align:center;box-shadow:0 0 25px rgba(0,198,255,.15)}
+  .fintci-box .label{font-size:11px;letter-spacing:3px;color:#00c6ff;font-weight:800}
+  .fintci-box h2{font-size:26px;margin-top:8px;line-height:1.3}
+  .fintci-box h2 span{color:#00c6ff}
+  .fintci-box p{color:#ccc;font-size:14px;line-height:1.7;margin:10px auto;max-width:550px}
+  .btn-fintci{display:inline-block;margin-top:8px;background:#00c6ff;color:black;padding:14px 32px;border-radius:50px;font-weight:900;text-decoration:none;font-size:15px;box-shadow:0 0 20px rgba(0,198,255,.4)}
+  .btn-fintci:active{transform:scale(.97)}
+  #halamanDaftar{display:none;max-width:600px;margin:auto;padding:0 20px 40px}
+  #halamanFintci{display:none;max-width:600px;margin:auto;padding:20px 20px 40px;text-align:center}
+  .fintci-belum{background:#111118;border:2px solid #00c6ff;border-radius:22px;padding:40px 22px;margin-top:10px}
+  .fintci-belum .icon{font-size:60px}
+  .fintci-belum h2{font-size:26px;margin:12px 0;line-height:1.3}
+  .fintci-belum h2 span{color:#00c6ff}
+  .fintci-belum p{color:#ccc;line-height:1.8;font-size:14px;margin:10px auto;max-width:450px}
+  .fintci-belum .status{display:inline-block;background:#1a1400;border:1px dashed #ffcc00;color:#ffcc00;font-size:12px;font-weight:800;padding:8px 16px;border-radius:50px;margin-top:8px;letter-spacing:1px}
+  .btn-kembali-fintci{display:inline-block;margin-top:20px;background:#00c6ff;color:black;padding:14px 30px;border-radius:50px;font-weight:900;text-decoration:none;font-size:14px}
+  .marquee-daftar{overflow:hidden;white-space:nowrap;background:linear-gradient(90deg,#ffcc00,#ff6a00,#ffcc00);background-size:200% 100%;animation:gradMove 3s linear infinite;color:black;font-weight:900;padding:10px 0;font-size:13px;letter-spacing:1px;border-radius:0 0 14px 14px;margin-bottom:18px}
+  .marquee-daftar span{display:inline-block;animation:marquee 12s linear infinite;padding-left:10px}
+  .promo-kedip{display:flex;align-items:center;justify-content:center;gap:8px;text-align:center;background:#1a1400;border:1px dashed #ffcc00;border-radius:12px;padding:10px;font-size:13px;font-weight:800;color:#ffcc00;animation:kedip 1.2s ease-in-out infinite;margin-bottom:16px}
+  @keyframes kedip{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.98)}}
+  .judul-animasi{text-align:center;font-size:27px;font-weight:900;line-height:1.2;background:linear-gradient(90deg,#ffcc00,#fff,#ff6a00,#ffcc00);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:gradMove 3s linear infinite}
+  .langkah{display:flex;gap:8px;justify-content:center;margin:16px 0 6px}
+  .langkah div{flex:1;background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:12px 4px;text-align:center;font-size:11px;line-height:1.4;color:#ccc}
+  .langkah div b{display:block;font-size:13px;color:#ffcc00;margin-top:4px}
+  .langkah .aktif{border-color:#ffcc00;background:#221a00;color:white}
+  .langkah svg{width:26px;height:26px;stroke:#ffcc00}
+  .ketentuan-box{background:#1a1400;border:2px solid #ffcc00;border-radius:18px;padding:20px;margin-bottom:16px}
+  .ketentuan-box h3{text-align:center;color:#ffcc00;font-size:17px;letter-spacing:1px;margin-bottom:4px}
+  .ketentuan-box .sub{text-align:center;font-size:12px;color:#aaa;margin-bottom:14px;line-height:1.5}
+  .ketentuan-item{display:flex;gap:10px;background:#0a0a10;border:1px solid #333;border-radius:12px;padding:12px;margin-bottom:10px}
+  .ketentuan-item .nomor{width:30px;height:30px;min-width:30px;background:#ffcc00;color:black;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px}
+  .ketentuan-item b{display:block;color:white;font-size:14px;margin-bottom:2px}
+  .ketentuan-item span{font-size:13px;color:#ccc;line-height:1.5;display:block}
+  .ketentuan-item span b{display:inline;color:#ffcc00}
+  .kontrak-penting{background:#ffcc00;color:black;border-radius:12px;padding:14px;text-align:center;margin-top:4px}
+  .kontrak-penting b{font-size:16px;display:block}
+  .kontrak-penting span{font-size:13px;line-height:1.5;display:block;margin-top:4px;font-weight:600}
+  .form-box{background:#111118;border:1px solid #2a2a2a;padding:26px;border-radius:20px;box-shadow:0 0 30px rgba(255,204,0,.08)}
+  .form-box label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;margin:14px 0 6px}
+  .form-box label svg{width:18px;height:18px;stroke:#ffcc00;flex-shrink:0}
+  .form-box input,.form-box textarea,.form-box select{width:100%;padding:13px 14px;border-radius:12px;border:1px solid #333;background:#0a0a10;color:white;font-size:15px;outline:none}
+  .form-box input:focus,.form-box textarea:focus,.form-box select:focus{border-color:#ffcc00;box-shadow:0 0 0 3px rgba(255,204,0,.15)}
+  .form-box select option{background:#111118;color:white}
+  .note{display:flex;gap:8px;font-size:12px;color:#aaa;margin-top:8px;line-height:1.5}
+  .note svg{width:18px;height:18px;stroke:#ffcc00;flex-shrink:0;margin-top:1px}
+  .note b{color:#ffcc00}
+  .protected{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:18px;background:#0a2a12;border:1px solid #2e7d32;border-radius:12px;padding:12px;text-align:center;font-size:13px;color:#a5d6a7}
+  .protected svg{width:20px;height:20px;stroke:#a5d6a7;flex-shrink:0}
+  .captcha-box{margin-top:18px;background:#0a0a10;border:2px solid #ffcc00;border-radius:14px;padding:16px}
+  .captcha-title{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;color:#ffcc00;letter-spacing:1px}
+  .captcha-title svg{width:18px;height:18px;stroke:#ffcc00}
+  .captcha-soal{display:flex;align-items:center;gap:10px;margin-top:12px}
+  .captcha-angka{background:#ffcc00;color:black;font-size:22px;font-weight:900;padding:10px 18px;border-radius:10px;letter-spacing:2px;min-width:110px;text-align:center;user-select:none}
+  .btn-refresh{background:#1a1a1a;border:1px solid #333;color:white;width:44px;height:44px;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .btn-refresh svg{width:20px;height:20px;stroke:#ffcc00}
+  .captcha-input{flex:1}
+  .captcha-input input{text-align:center;font-size:18px;font-weight:800}
+  .captcha-error{display:none;color:#ff5252;font-size:12px;font-weight:700;margin-top:8px;text-align:center;background:rgba(255,82,82,.1);border:1px solid #ff5252;padding:8px;border-radius:8px}
+  .captcha-sukses{display:none;color:#69f0ae;font-size:12px;font-weight:700;margin-top:8px;text-align:center}
+  .ceklis{display:flex;align-items:center;gap:10px;margin-top:14px;background:#0a0a10;border:1px solid #333;border-radius:12px;padding:12px;cursor:pointer}
+  .ceklis input{width:20px;height:20px;accent-color:#ffcc00;cursor:pointer;flex-shrink:0}
+  .ceklis span{font-size:13px;color:#ccc;line-height:1.4}
+  .ceklis b{color:white}
+  .ceklis-kontrak{background:#221a00;border:2px solid #ffcc00}
+  .ceklis-kontrak b{color:#ffcc00}
+  .btn-kirim{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:18px;background:linear-gradient(90deg,#ffcc00,#ff9a00);color:black;border:none;padding:15px;border-radius:50px;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 5px 20px rgba(255,204,0,.4)}
+  .btn-kirim svg{width:20px;height:20px;stroke:black}
+  .btn-kembali{display:block;text-align:center;margin-top:14px;color:#aaa;text-decoration:none;font-size:14px}
+  .mini-info{display:flex;gap:10px;margin-top:16px}
+  .mini-info div{flex:1;background:#0a0a10;border:1px solid #222;border-radius:12px;padding:12px;text-align:center;font-size:12px;color:#aaa;line-height:1.5}
+  .mini-info b{color:white;display:block;font-size:14px;margin:6px 0 2px}
+  .mini-info svg{width:26px;height:26px;stroke:#ffcc00;margin:auto;display:block}
+  footer{background:#0a0a10;border-top:1px solid #222;padding:35px 20px 25px;text-align:center}
+  .footer-logo{font-size:22px;font-weight:900;letter-spacing:2px}
+  .footer-logo span{color:#ffcc00}
+  .footer-contact{margin:15px 0;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .footer-contact a{display:flex;align-items:center;gap:8px;color:white;text-decoration:none;background:#1a1a1a;border:1px solid #333;padding:10px 18px;border-radius:50px;font-size:14px}
+  .footer-contact a svg{width:18px;height:18px;stroke:#ffcc00}
+  .footer-contact a b{color:#ffcc00}
+  .copyright{color:#888;font-size:13px;line-height:1.7;margin-top:10px}
+  .copyright b{color:white}
+  .partner-section{background:#050508;border-top:1px solid #222;padding:35px 20px 40px;text-align:center}
+  .partner-label{font-size:11px;letter-spacing:4px;color:#ffcc00;font-weight:800}
+  .partner-section h2{font-size:26px;font-weight:900;margin-top:8px;line-height:1.2}
+  .partner-section h2 span{color:#ffcc00}
+  .partner-section p{color:#aaa;font-size:13px;margin:10px auto 22px;max-width:500px;line-height:1.6}
+  .partner-grid{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;max-width:700px;margin:auto}
+  .partner-logo{width:130px;height:130px;aspect-ratio:1/1;background:#000;border:2px solid #ffcc00;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+  .partner-logo img{width:100%;height:100%;object-fit:cover;display:block}
+  .partner-name{margin-top:8px;font-size:11px;font-weight:800;color:#ccc;text-align:center;line-height:1.4}
+  .partner-name b{color:white}
+  @media(max-width:500px){.partner-logo{width:110px;height:110px}}
+  .popup-bg{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:9999;padding:20px}
+  .popup{background:#111118;border:2px solid #ffcc00;border-radius:20px;padding:30px 22px;text-align:center;max-width:400px;width:100%;animation:popMuncul .3s ease}
+  @keyframes popMuncul{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+  .popup .icon svg{width:56px;height:56px;stroke:#ffcc00}
+  .popup h3{font-size:22px;margin:10px 0}
+  .popup p{color:#ccc;line-height:1.7;font-size:14px}
+  .popup button{margin-top:18px;background:#ffcc00;color:black;border:none;padding:13px 30px;border-radius:50px;font-weight:900;cursor:pointer;width:100%}
+</style>
+</head>
+<body>
+
+<div id="halamanUtama">
+<div class="marquee"><span>MARCOX REG • SOLID • LOYAL • KONSISTEN • TUMBUH BARENG • MARCOX REG • SOLID • LOYAL • KONSISTEN • TUMBUH BARENG •</span></div>
+<header>
+  <div class="brand">
+    <div class="logo-wrap">
+      <div class="logo-ring"></div>
+      <div class="logo-ring2"></div>
+      <div class="percikan"><i></i><i></i><i></i><i></i></div>
+      <div class="logo-box no-download"><img src="https://cdn.phototourl.com/anon/2026-11-18-afe5e1c3-3168-4668-9c85-405a00eae9db.png" alt="MARCOX REG" draggable="false"></div>
+      <div class="api"><span></span><span></span><span></span></div>
+    </div>
+    <div class="brand-text"><b>MARCOX <span>REG</span></b><br><small>TEAM BISNIS</small></div>
+  </div>
+  <nav><a href="#tentang">Tentang</a><a href="#sejarah">Sejarah</a><a href="#visi">Visi</a><a href="#pesan">Pesan</a></nav>
+</header>
+<section class="hero">
+  <div class="banner-wrap">
+    <div class="banner no-download" id="bannerSlider">
+      <div class="banner-track" id="bannerTrack">
+        <div class="banner-slide"><img src="https://cdn.phototourl.com/anon/2026-11-18-78f6cbb2-3658-47cc-a29e-192aa4b47612.png" alt="Banner 1 MARCOX REG" draggable="false"></div>
+        <div class="banner-slide"><img src="https://cdn.phototourl.com/anon/2026-11-18-80f7a578-cefc-4984-b35c-4f58057185cf.png" alt="Banner 2 MARCOX REG" draggable="false"></div>
+      </div>
+    </div>
+    <div class="dots-box"><div class="dots-inner">
+      <button class="dot active" onclick="pindahBanner(0)" aria-label="Banner 1"></button>
+      <button class="dot" onclick="pindahBanner(1)" aria-label="Banner 2"></button>
+    </div></div>
+  </div>
+  <div style="background:#1a1a1a;border:1px solid #333;padding:6px 14px;border-radius:50px;font-size:12px;letter-spacing:2px">TEAM BISNIS • COMMUNITY • GROWTH</div>
+  <h1 class="marcox">MARCOX</h1>
+  <div class="reg">R E G</div>
+  <p class="tag">Bukan sekedar nama. Ini tentang orang-orang yang berjuang bareng, saling dukung, dan tumbuh jadi versi terbaiknya. Sekali MARCOX, tetap MARCOX.</p>
+  <div class="btn"><a class="btn1" href="#tentang">Kenali Kami</a><a class="btn2" href="#sejarah">Sejarah Kami</a><a class="btn3" href="#pesan">Pesan Untuk Team</a></div>
+</section>
+<section class="section" id="tentang">
+  <h2>Tentang <span>MARCOX REG</span></h2>
+  <p>MARCOX REG bukan sekedar sebuah nama team, bukan sekedar kumpulan orang yang kebetulan kenal, dan bukan sekedar grup yang ramai di chat saja. <b>MARCOX REG adalah rumah.</b> Rumah bagi orang-orang yang punya mimpi besar, tapi sadar kalau mimpi itu akan jauh lebih berat kalau diperjuangkan sendirian.</p>
+  <p>Di sini, kita percaya bahwa setiap orang punya potensi. Ada yang jago ngomong, ada yang jago mikir strategi, ada yang jago eksekusi, ada yang jago nenangin suasana. Dan justru karena kita beda-beda itulah kita jadi kuat. Kita saling melengkapi, bukan saling menjatuhkan. Kalau ada satu yang jatuh, yang lain yang narik. Kalau ada satu yang berhasil, yang lain yang ikut bangga.</p>
+  <p>MARCOX REG mengajarkan kita satu hal penting : <b>proses itu tidak pernah mengkhianati hasil.</b> Kita mungkin mulai dari nol, dari tidak ada apa-apa, dari diremehkan orang, dari gagal berkali-kali. Tapi kita tidak pernah berhenti. Kita terus belajar, terus mencoba, terus memperbaiki diri. Karena kita tahu, orang yang bertahan sampai akhir lah yang akan jadi pemenang.</p>
+  <div class="quote-box"><p>“Di MARCOX REG, kita bukan saingan. Kita saudara. Sukses satu orang adalah sukses kita semua.”</p></div>
+  <p>Team ini dibangun dengan pondasi kekeluargaan, loyalitas, dan kejujuran. Kita tidak mau jadi team yang hanya kelihatan solid di depan, tapi rapuh di belakang. Kita mau jadi team yang benar-benar solid, di saat senang maupun di saat sulit. Di saat ramai maupun di saat sepi. Di saat di atas maupun di saat di bawah.</p>
+</section>
+<section class="section" id="sejarah">
+  <h2>Sejarah <span>Berdirinya MARCOX REG</span></h2>
+  <p>Semua berawal dari hal yang sangat sederhana. Dari sekedar nongkrong, dari sekedar ngobrol ngalor-ngidul, dari sekedar sharing keluh kesah tentang hidup, tentang kerjaan, tentang masa depan. Tidak ada yang menyangka kalau obrolan-obrolan ringan itu akan berubah menjadi sebuah team yang sampai sekarang masih berdiri tegak.</p>
+  <p>Dulu, kita hanya beberapa orang saja. Tidak punya apa-apa. Tidak punya nama besar. Tidak punya modal besar. Yang kita punya hanya satu : <b>kemauan untuk berubah dan tidak mau stuck di tempat yang sama.</b> Kita capek jadi penonton di kehidupan orang lain. Kita ingin jadi pemain di kehidupan kita sendiri.</p>
+  <p>Dari situlah nama MARCOX REG lahir. Nama yang mungkin terdengar sederhana bagi orang lain, tapi bagi kita nama ini punya arti yang sangat dalam. MARCOX adalah identitas. REG adalah kebanggaan. Setiap kali kita menyebut nama itu, kita ingat perjuangan kita dari awal, kita ingat siapa saja yang sudah berjuang bareng, dan kita ingat tujuan kita mau kemana.</p>
+  <p>Perjalanan kita tidak selalu mulus. Pernah ada masa dimana team ini sepi. Pernah ada masa dimana banyak yang pergi. Pernah ada masa dimana kita merasa mau menyerah. Tapi justru di masa-masa itulah kita belajar, siapa yang benar-benar loyal, siapa yang benar-benar tulus, dan siapa yang benar-benar mau berjuang bareng sampai akhir.</p>
+  <p>Dan hari ini, MARCOX REG masih ada. Bukan karena kita yang paling hebat. Tapi karena kita yang paling bertahan. Kita belajar dari setiap kegagalan, kita bangkit dari setiap kejatuhan, dan kita terus melangkah walaupun pelan. Karena bagi kita, <b>pelan asal jalan, jauh lebih baik daripada cepat tapi berhenti di tengah jalan.</b></p>
+</section>
+<section class="section" id="visi">
+  <h2>Visi & <span>Misi Kami</span></h2>
+  <p><b>Visi Kami :</b> Menjadi team yang solid, mandiri, berintegritas, dan bisa menginspirasi banyak orang. Team yang tidak hanya sukses secara materi, tapi juga sukses secara mental, sukses secara sikap, dan sukses dalam menjaga persaudaraan.</p>
+  <p>Kami ingin MARCOX REG dikenal bukan hanya karena namanya yang besar, tapi karena sikap membernya yang dewasa, cara kerjanya yang profesional, dan loyalitasnya yang tidak perlu diragukan lagi.</p>
+  <div class="list-box"><h3>Misi Kami :</h3><p><b>1. Saling Support Tanpa Menjatuhkan.</b> Kita naik bareng-bareng. Tidak ada yang sengaja menjatuhkan temannya demi terlihat lebih hebat.</p><p><b>2. Konsisten Belajar dan Berproses.</b> Kita tidak pernah merasa sudah paling pintar. Setiap hari adalah kesempatan untuk belajar hal baru.</p><p><b>3. Jaga Nama Baik Team Dimanapun Berada.</b> Nama MARCOX REG adalah amanah. Setiap sikap kita di luar sana membawa nama team.</p><p><b>4. Loyal Dalam Segala Kondisi.</b> Loyal itu bukan hanya saat team lagi ramai dan senang. Loyal itu justru dibuktikan saat team lagi sepi, lagi sulit, lagi banyak masalah.</p></div>
+</section>
+<section class="section">
+  <h2>Nilai Yang Kami <span>Pegang Teguh</span></h2>
+  <p>Ada 3 nilai utama yang selalu kami pegang di MARCOX REG. Pertama adalah <b>SOLID.</b> Solid artinya kita satu suara, satu tujuan, satu langkah. Kita tidak jalan sendiri-sendiri. Kita jalan bareng, dengan arah yang sama.</p>
+  <p>Kedua adalah <b>LOYAL.</b> Loyal itu bukan sekedar kata-kata di bio atau di status. Loyal itu dibuktikan dengan tindakan. Tetap ada saat team butuh, tetap bertahan saat yang lain pergi, tetap membela nama baik team saat team sedang dibicarakan orang. Sekali MARCOX, tetap MARCOX.</p>
+  <p>Ketiga adalah <b>GROW / TUMBUH.</b> Kita tidak mau stuck. Kita mau terus tumbuh. Tumbuh secara pemikiran, tumbuh secara mental, tumbuh secara finansial, dan tumbuh secara kedewasaan. Siapa yang ketinggalan kita tarik, siapa yang di depan kita dorong makin jauh. Tidak ada yang ditinggalkan.</p>
+</section>
+<section class="cards">
+  <div class="card"><b>SOLID</b><h3>Kekeluargaan</h3><p>Team ini bukan cuma soal kerjaan, tapi soal rasa memiliki, saling jaga, dan saling peduli seperti keluarga sendiri.</p></div>
+  <div class="card"><b>LOYAL</b><h3>Setia Proses</h3><p>Gak gampang pindah haluan. Sekali MARCOX, tetap MARCOX. Setia di saat senang maupun susah.</p></div>
+  <div class="card"><b>GROW</b><h3>Tumbuh Bareng</h3><p>Siapa yang ketinggalan kita tarik, siapa yang di depan kita dorong makin jauh. Tidak ada yang jalan sendiri.</p></div>
+</section>
+<section class="section" id="pesan">
+  <h2>Pesan Untuk <span>Seluruh Member MARCOX REG</span></h2>
+  <p>Untuk kalian semua yang masih bertahan sampai hari ini, terima kasih. Terima kasih sudah mau berjuang bareng, sudah mau sabar dengan proses, sudah mau tetap ada walaupun banyak rintangan. Kalian adalah bukti nyata kalau MARCOX REG itu bukan sekedar nama, tapi sebuah keluarga yang nyata.</p>
+  <p>Jangan pernah merasa kalian sendirian. Selama kalian masih membawa nama MARCOX REG, kalian punya saudara-saudara yang siap mendukung kalian. Kalau kalian lagi capek, istirahat sebentar, tapi jangan berhenti. Kalau kalian lagi gagal, jangan malu, karena semua orang pernah gagal. Yang penting kalian mau bangkit lagi.</p>
+  <p>Ingat, kita tidak sedang berlomba dengan team lain. Kita sedang berlomba dengan diri kita sendiri di masa lalu. Selama hari ini kita lebih baik dari kemarin, itu sudah kemenangan. Tidak perlu terburu-buru. Tidak perlu membandingkan diri dengan orang lain. Fokus saja pada proses kita sendiri.</p>
+  <div class="quote-box"><p>“Bukan tentang siapa yang paling cepat, tapi siapa yang tetap bertahan sampai akhir. Dan kita, adalah orang-orang yang akan bertahan sampai akhir.”</p></div>
+  <p>Ke depan, perjalanan kita masih panjang. Akan ada banyak tantangan baru, banyak ujian baru, banyak godaan untuk menyerah. Tapi selama kita tetap solid, tetap loyal, dan tetap satu tujuan, tidak ada yang bisa menghancurkan team ini. MARCOX REG akan terus ada, akan terus tumbuh, dan akan terus jadi kebanggaan kita semua.</p>
+  <p><b>Terus semangat. Terus berproses. Terus jaga nama baik team. Kita kuat karena kita bersama. MARCOX REG JAYA SELALU!</b></p>
+</section>
+<section class="section" style="text-align:center"><h2>“Bukan Tentang Siapa Yang Paling Cepat,<br><span>Tapi Siapa Yang Tetap Bertahan Sampai Akhir.”</span></h2><p style="margin-top:10px;text-align:center">- MARCOX REG -</p></section>
+
+<div style="padding:0 22px"><div class="kerja"><div style="font-size:12px;letter-spacing:3px;color:#ffcc00;font-weight:800">PELUANG TERBUKA UNTUK KAMU</div><h2 style="margin-top:10px">INGIN CARI KERJA<br><span>ONLINE MODAL HP?</span></h2><p>Gabung bareng MARCOX REG. Kerja dari HP, dibimbing dari nol, tumbuh bareng team yang solid dan loyal. Gak perlu pengalaman, yang penting mau belajar dan konsisten.</p><p style="font-size:13px;color:#ffcc00;font-weight:700">CUMA MODAL HP + KUOTA + KEMAUAN BELAJAR</p><a class="btn-daftar" href="javascript:void(0)" onclick="bukaDaftar()">KLIK PENDAFTARAN</a><p style="font-size:12px;color:#888;margin-top:12px">Gratis • Tanpa dipungut biaya pendaftaran</p></div></div>
+
+<div class="fintci-wrap"><div class="fintci-box"><div class="label">PROGRAM BARU • MARCOX REG</div><h2>PROGRAM <span>FINTCI</span></h2><p>Program terbaru dari MARCOX REG. Penasaran? Klik tombol di bawah untuk lihat programnya.</p><a class="btn-fintci" href="javascript:void(0)" onclick="bukaFintci()">LIHAT PROGRAM FINTCI ➤</a></div></div>
+
+<div class="partner-section">
+  <div class="partner-label">PARTNER & KOLABORASI</div>
+  <h2>KERJA SAMA <span>BISNIS</span></h2>
+  <p>Terima kasih untuk semua partner yang sudah percaya dan tumbuh bareng MARCOX REG. Kita kuat karena kita bersama.</p>
+  <div class="partner-grid">
+    <div><div class="partner-logo no-download"><img src="https://cdn.phototourl.com/anon/2026-11-18-8bd2e32c-118c-434e-bee2-5a62a5c36e19.jpg" alt="VCA" draggable="false"></div><div class="partner-name"><b>VCA</b><br>Partner Bisnis</div></div>
+    <div><div class="partner-logo no-download"><img src="https://cdn.phototourl.com/anon/2026-11-18-2d248523-ab20-456b-a459-ec77a9c29129.png" alt="MARCOX REG PRODUCTION" draggable="false"></div><div class="partner-name"><b>MARCOX REG</b><br>PRODUCTION</div></div>
+  </div>
+  <p style="margin-top:18px;font-size:12px;color:#666">Mau jadi partner MARCOX REG? Hubungi kami lewat WhatsApp di bawah.</p>
+</div>
+
+<footer><div class="footer-logo">MARCOX <span>REG</span></div><p style="color:#aaa;font-size:13px;margin-top:6px">Hubungi Team Kami</p><div class="footer-contact"><a href="https://wa.me/6281234567890"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span><b>Nomer Bisnis :</b> 0812-3456-7890</span></a><a href="mailto:marcoxreg@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span><b>Gmail :</b> marcoxreg@gmail.com</span></a></div><div class="copyright"><b>© 2026 MARCOX REG. Hak Cipta Dilindungi.</b><br>Dilarang menyalin, menggunakan nama, logo, dan konten MARCOX REG tanpa izin resmi.<br>Semua hak dilindungi Undang-Undang.</div></footer>
+
+</div>
+
+<div id="halamanDaftar">
+  <div class="marquee-daftar"><span>SELAMAT DATANG DI MARCOX REG • DAFTAR SEKARANG GRATIS • DIBIMBING DARI NOL • SOLID • LOYAL • TUMBUH BARENG •</span></div>
+  <div class="promo-kedip"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffcc00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> KUOTA PENDAFTARAN TERBUKA HARI INI • GRATIS 100%</div>
+  <div class="judul-animasi">FORMULIR<br>PENDAFTARAN</div>
+  <p style="text-align:center;color:#aaa;font-size:14px;margin:10px 0 0">MARCOX REG • Kerja Online Modal HP</p>
+  <div class="langkah"><div><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><b>1. ISI DATA</b>LENGKAP</div><div class="aktif"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><b>2. CAPTCHA</b>BUKTI MANUSIA</div><div><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg><b>3. KLIK KIRIM</b>CEK EMAIL</div></div>
+
+  <div class="ketentuan-box">
+    <h3>📋 KETENTUAN KERJA MARCOX REG</h3>
+    <p class="sub">Wajib dibaca sampai habis sebelum daftar. Kalau daftar = berarti sudah setuju semua ketentuan di bawah.</p>
+    <div class="ketentuan-item"><div class="nomor">1</div><div><b>Minimal Kerja Online</b><span>Minimal kerja <b>2 - 3 Jam / Hari</b>. Jamnya bebas, boleh siang / sore / malam. Yang penting <b>konsisten tiap hari, tidak boleh bolong 2 hari berturut-turut tanpa izin</b>.</span></div></div>
+    <div class="ketentuan-item"><div class="nomor">2</div><div><b>Minimal Absen / Laporan Harian</b><span>Wajib <b>absen / laporan 1x sehari</b> di grup. Cuma kirim bukti kerja + kabar. Kalau 3 hari tidak ada kabar tanpa izin, dianggap mengundurkan diri.</span></div></div>
+    <div class="ketentuan-item"><div class="nomor">3</div><div><b>Wajib Nurut Arahan Leader / Admin</b><span>Semua cara kerja, materi, dan target sudah diatur team. <b>Tidak boleh jalan sendiri, tidak boleh ubah-ubah sistem</b> tanpa izin leader.</span></div></div>
+    <div class="ketentuan-item"><div class="nomor">4</div><div><b>Wajib Jaga Nama Baik Team</b><span>Dilarang menjelekkan team, dilarang bocorin materi / grup ke orang luar, dilarang nipu atas nama MARCOX REG. Ketahuan = langsung dikeluarkan.</span></div></div>
+    <div class="ketentuan-item"><div class="nomor">5</div><div><b>Tidak Boleh Double Team</b><span>Selama masih kontrak di MARCOX REG, <b>dilarang gabung team lain yang sejenis</b>. Fokus 1 team dulu sampai kontrak selesai.</span></div></div>
+    <div class="ketentuan-item"><div class="nomor">6</div><div><b>Modal Kerja</b><span>Cuma modal <b>HP + Kuota + Kemauan Belajar</b>. Tidak ada biaya pendaftaran. Kalau ada yang minta uang atas nama MARCOX REG, itu penipuan, langsung lapor admin.</span></div></div>
+    <div class="kontrak-penting">
+      <b>⚠️ KONTRAK WAJIB 1 BULAN - TIDAK BISA DITAWAR</b>
+      <span>Setelah diterima, kamu WAJIB menjalani kontrak selama <b>1 BULAN PENUH (30 HARI)</b>.<br>Keluar sebelum 1 bulan = <b>dianggap gagal kontrak, tidak dapat surat, tidak bisa daftar lagi</b>.<br>Lolos 1 bulan = <b>bebas lanjut, naik level, dapat prioritas job</b>.</span>
+    </div>
+  </div>
+
+  <div class="form-box">
+    <form id="formDaftar">
+      <label>Nama Lengkap *</label>
+      <input type="text" name="Nama" placeholder="Contoh: Andi Pratama" required>
+      <label>Nomer WA *</label>
+      <input type="tel" name="Nomer WA" placeholder="Contoh: 0812xxxx" required>
+      <label>Kota / Domisili *</label>
+      <input type="text" name="Kota" placeholder="Contoh: Kota Anda" required>
+      <label>Umur *</label>
+      <input type="number" name="Umur" placeholder="Contoh: 19" required>
+      <label>Email *</label>
+      <input type="email" name="Email" placeholder="Contoh: nama@gmail.com" required>
+      <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><b>Email hanya untuk mengirimkan surat terima resmi.</b> Surat penerimaan akan dikirim lewat email ini jika anda lolos seleksi.</span></div>
+      <label>Dari mana kamu tau MARCOX REG? *</label>
+      <select name="Tau Dari Mana" required>
+        <option value="">-- Pilih Salah Satu --</option>
+        <option>Dari Teman / Member MARCOX</option>
+        <option>Dari TikTok</option>
+        <option>Dari Instagram</option>
+        <option>Dari WhatsApp / Status WA</option>
+        <option>Dari Facebook</option>
+        <option>Lainnya</option>
+      </select>
+      <label>Pernah kerja online sebelumnya? *</label>
+      <select name="Pernah Kerja Online" required>
+        <option value="">-- Pilih --</option>
+        <option>Belum Pernah, Baru Pertama Kali</option>
+        <option>Pernah, Tapi Berhenti</option>
+        <option>Sedang Kerja Online Juga</option>
+      </select>
+      <label>HP yang dipakai buat kerja? *</label>
+      <select name="HP" required>
+        <option value="">-- Pilih --</option>
+        <option>HP Sendiri</option>
+        <option>HP Pinjam / Bareng Keluarga</option>
+        <option>HP + Laptop</option>
+      </select>
+      <label>Jam kosong / Bisa kerja jam berapa? *</label>
+      <input type="text" name="Jam Kosong" placeholder="Contoh: Siang jam 12 - sore, Malam jam 7 - 10" required>
+      <label>Akun IG / TikTok kamu? *</label>
+      <input type="text" name="Akun Sosmed" placeholder="Contoh: IG @andi, TikTok @andi123" required>
+      <label>Kenapa kamu pengen banget gabung MARCOX REG? *</label>
+      <textarea name="Alasan" rows="3" placeholder="Ceritakan kenapa kamu mau gabung MARCOX REG..." required></textarea>
+      <label>Kalau diterima, kamu siap konsisten & nurut arahan team? *</label>
+      <select name="Siap Konsisten" required>
+        <option value="">-- Pilih --</option>
+        <option>Siap, Saya Serius Mau Berjuang</option>
+        <option>Siap, Tapi Masih Belajar Dulu</option>
+        <option>Belum Yakin, Mau Coba Dulu</option>
+      </select>
+      <div class="captcha-box">
+        <div class="captcha-title">VERIFIKASI - BUKTIKAN KAMU MANUSIA</div>
+        <div class="captcha-soal">
+          <div class="captcha-angka" id="captchaSoal">5 + 3 = ?</div>
+          <button type="button" class="btn-refresh" onclick="buatCaptcha()" title="Ganti soal">↻</button>
+          <div class="captcha-input"><input type="number" id="captchaJawaban" placeholder="Jawaban" inputmode="numeric"></div>
+        </div>
+        <div class="captcha-error" id="captchaError">Jawaban captcha salah, coba lagi ya.</div>
+        <div class="captcha-sukses" id="captchaSukses">Captcha benar, silahkan klik kirim.</div>
+        <label class="ceklis"><input type="checkbox" id="cekRobot"><span><b>Saya bukan robot</b><br>Saya menyetujui data saya diproses oleh MARCOX REG untuk pendaftaran.</span></label>
+        <div class="captcha-error" id="robotError">Tolong centang dulu "Saya bukan robot" ya.</div>
+        <label class="ceklis ceklis-kontrak"><input type="checkbox" id="cekKontrak"><span><b>SAYA SETUJU KONTRAK WAJIB 1 BULAN</b><br>Saya sudah baca ketentuan di atas. Saya siap kerja minimal 2-3 jam/hari, absen tiap hari, dan tidak keluar sebelum kontrak 1 bulan selesai.</span></label>
+        <div class="captcha-error" id="kontrakError">Tolong centang dulu "Saya Setuju Kontrak Wajib 1 Bulan" ya, kalau tidak setuju tidak bisa daftar.</div>
+      </div>
+      <div class="protected">Data anda telah dilindungi.</div>
+      <button type="submit" class="btn-kirim" id="btnKirim">KONFIRMASI & KIRIM ➤</button>
+    </form>
+    <a class="btn-kembali" href="javascript:void(0)" onclick="tutupDaftar()">Kembali ke Beranda</a>
+  </div>
+  <div class="mini-info"><div><b>Respon Cepat</b>Data langsung masuk ke admin</div><div><b>Aman</b>Data tidak dibagikan</div><div><b>Gratis</b>Tanpa biaya daftar</div></div>
+  <div class="marquee-daftar" style="margin-top:16px;border-radius:14px"><span>MARCOX REG JAYA SELALU • SEKALI MARCOX TETAP MARCOX • SOLID • LOYAL • KONSISTEN •</span></div>
+</div>
+
+<div id="halamanFintci">
+  <div class="marquee-daftar"><span>PROGRAM FINTCI • MARCOX REG • PROGRAM BARU • COMING SOON •</span></div>
+  <div class="fintci-belum">
+    <div class="icon">🚧</div>
+    <h2>PROGRAM <span>FINTCI</span></h2>
+    <p><b style="color:white;font-size:16px">Program Ini Belum Tersedia</b><br><br>Mohon maaf, program FINTCI masih dalam tahap persiapan dan belum dibuka untuk pendaftaran.<br><br>Silahkan pantau terus Instagram / WhatsApp MARCOX REG untuk info pembukaan program FINTCI. Terima kasih sudah penasaran dengan program baru kami!</p>
+    <div class="status">⏳ COMING SOON - SEGERA DIBUKA</div>
+    <br>
+    <a class="btn-kembali-fintci" href="javascript:void(0)" onclick="tutupFintci()">← KEMBALI KE BERANDA</a>
+    <br>
+    <a class="btn-kembali" href="javascript:void(0)" onclick="tutupFintci()">Kembali</a>
+  </div>
+</div>
+
+<div class="popup-bg" id="popup">
+  <div class="popup">
+    <h3>Pendaftaran Berhasil!</h3>
+    <p>Terima kasih sudah mendaftar di MARCOX REG.<br><br><b style="color:#ffcc00">Data anda akan di proses selama 3-14 hari kerja.</b><br><br>Silahkan cek email anda secara berkala untuk surat terima resmi. Tetap semangat!</p>
+    <button onclick="tutupPopup()">OKE, MENGERTI</button>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.no-download img').forEach(function(img){
+  img.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; });
+});
+let bannerIndex = 0;
+let bannerTimer = null;
+function updateBanner(){
+  const track = document.getElementById('bannerTrack');
+  if(!track) return;
+  track.style.transform = 'translateX(-' + (bannerIndex * 100) + '%)';
+  document.querySelectorAll('.dot').forEach(function(d,i){
+    d.classList.toggle('active', i===bannerIndex);
+  });
+}
+function pindahBanner(i){
+  bannerIndex = i;
+  updateBanner();
+  restartBannerAuto();
+}
+function nextBanner(){
+  bannerIndex = (bannerIndex + 1) % 2;
+  updateBanner();
+}
+function restartBannerAuto(){
+  if(bannerTimer) clearInterval(bannerTimer);
+  bannerTimer = setInterval(nextBanner, 4000);
+}
+restartBannerAuto();
+(function(){
+  const slider = document.getElementById('bannerSlider');
+  if(!slider) return;
+  let startX = 0, currentX = 0, isDragging = false;
+  slider.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+    isDragging = true;
+  }, {passive:true});
+  slider.addEventListener('touchmove', function(e){
+    if(!isDragging) return;
+    currentX = e.touches[0].clientX;
+  }, {passive:true});
+  slider.addEventListener('touchend', function(){
+    if(!isDragging) return;
+    isDragging = false;
+    let diff = currentX - startX;
+    if(diff < -50){ bannerIndex = 1; updateBanner(); restartBannerAuto(); }
+    else if(diff > 50){ bannerIndex = 0; updateBanner(); restartBannerAuto(); }
+    currentX = 0;
+  });
+  let mouseDown = false, mouseStart = 0;
+  slider.addEventListener('mousedown', function(e){ mouseDown = true; mouseStart = e.clientX; });
+  slider.addEventListener('mouseup', function(e){
+    if(!mouseDown) return;
+    mouseDown = false;
+    let diff = e.clientX - mouseStart;
+    if(diff < -50){ bannerIndex = 1; updateBanner(); restartBannerAuto(); }
+    else if(diff > 50){ bannerIndex = 0; updateBanner(); restartBannerAuto(); }
+  });
+})();
+let jawabanBenar = 8;
+function buatCaptcha(){
+  const a = Math.floor(Math.random()*9)+1;
+  const b = Math.floor(Math.random()*9)+1;
+  const ops = ['+','-','x'];
+  const op = ops[Math.floor(Math.random()*ops.length)];
+  let hasil = 0;
+  if(op==='+') hasil = a+b;
+  if(op==='-') hasil = a-b;
+  if(op==='x') hasil = a*b;
+  jawabanBenar = hasil;
+  document.getElementById('captchaSoal').textContent = a + ' ' + op + ' ' + b + ' = ?';
+  const inp = document.getElementById('captchaJawaban');
+  if(inp) inp.value = '';
+  document.getElementById('captchaError').style.display='none';
+  document.getElementById('captchaSukses').style.display='none';
+}
+function bukaDaftar(){
+  document.getElementById('halamanUtama').style.display='none';
+  document.getElementById('halamanDaftar').style.display='block';
+  document.getElementById('halamanFintci').style.display='none';
+  window.scrollTo(0,0);
+  buatCaptcha();
+}
+function tutupDaftar(){
+  document.getElementById('halamanDaftar').style.display='none';
+  document.getElementById('halamanFintci').style.display='none';
+  document.getElementById('halamanUtama').style.display='block';
+  window.scrollTo(0,0);
+}
+function bukaFintci(){
+  document.getElementById('halamanUtama').style.display='none';
+  document.getElementById('halamanDaftar').style.display='none';
+  document.getElementById('halamanFintci').style.display='block';
+  window.scrollTo(0,0);
+}
+function tutupFintci(){
+  document.getElementById('halamanFintci').style.display='none';
+  document.getElementById('halamanDaftar').style.display='none';
+  document.getElementById('halamanUtama').style.display='block';
+  window.scrollTo(0,0);
+}
+function tutupPopup(){
+  document.getElementById('popup').style.display='none';
+  tutupDaftar();
+}
+document.getElementById('popup').addEventListener('click', function(e){
+  if(e.target === this) tutupPopup();
+});
+document.getElementById('captchaJawaban').addEventListener('input', function(){
+  const val = parseInt(this.value);
+  if(val === jawabanBenar){
+    document.getElementById('captchaSukses').style.display='block';
+    document.getElementById('captchaError').style.display='none';
+  } else {
+    document.getElementById('captchaSukses').style.display='none';
+  }
+});
+document.getElementById('formDaftar').addEventListener('submit', function(e){
+  e.preventDefault();
+  const jawab = parseInt(document.getElementById('captchaJawaban').value);
+  const cek = document.getElementById('cekRobot').checked;
+  const cekKontrak = document.getElementById('cekKontrak').checked;
+  if(!cek){
+    document.getElementById('robotError').style.display='block';
+    return;
+  } else {
+    document.getElementById('robotError').style.display='none';
+  }
+  if(!cekKontrak){
+    document.getElementById('kontrakError').style.display='block';
+    return;
+  } else {
+    document.getElementById('kontrakError').style.display='none';
+  }
+  if(isNaN(jawab) || jawab !== jawabanBenar){
+    document.getElementById('captchaError').style.display='block';
+    document.getElementById('captchaSukses').style.display='none';
+    buatCaptcha();
+    return;
+  }
+  const formData = new FormData(this);
+  const dataKirim = {};
+  formData.forEach((v,k)=>{ dataKirim[k]=v; });
+  dataKirim['_subject'] = 'Pendaftar Baru MARCOX REG - ' + (dataKirim['Nama']||'');
+  dataKirim['_template'] = 'table';
+  dataKirim['_captcha'] = 'false';
+  dataKirim['Setuju Kontrak'] = 'YA - SETUJU KONTRAK WAJIB 1 BULAN (30 HARI)';
+  dataKirim['Ketentuan Dibaca'] = 'Sudah baca ketentuan: Minimal 2-3 jam/hari, Absen 1x sehari, Nurut leader, Tidak double team';
+  document.getElementById('popup').style.display='flex';
+  document.getElementById('formDaftar').reset();
+  buatCaptcha();
+  fetch('https://formsubmit.co/ajax/cokek231@gmail.com', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+    body: JSON.stringify(dataKirim)
+  }).then(r=>{ console.log('Email terkirim', r.status); })
+  .catch(err=>{ console.log('Email gagal tapi popup tetap muncul', err); });
+});
+buatCaptcha();
+</script>
+</body>
+</html>
